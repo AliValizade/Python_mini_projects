@@ -10,57 +10,105 @@
     <height>500</height>
    </rect>
   </property>
+  <property name="mouseTracking">
+   <bool>false</bool>
+  </property>
   <property name="windowTitle">
    <string>List of employees</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">align-items: end;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>409</y>
       <width>381</width>
-      <height>101</height>
+      <height>50</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout" rowstretch="0,0">
-     <property name="spacing">
-      <number>10</number>
-     </property>
+    <layout class="QGridLayout" name="gridLayout1">
      <item row="0" column="1">
-      <widget class="QLineEdit" name="lineEdit_name"/>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="lineEdit_pos"/>
-     </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="delete_btn">
+      <widget class="QPushButton" name="add_btn">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 0, 127);
+</string>
+       </property>
        <property name="text">
-        <string>Delete</string>
+        <string>Add new employee</string>
        </property>
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="QLabel" name="pic_lbl">
+      <widget class="QPushButton" name="next_btn">
+       <property name="font">
+        <font>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
+        <string notr="true">color: rgb(85, 170, 0);</string>
        </property>
        <property name="text">
-        <string>picture</string>
+        <string>Next &gt;&gt;&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QPushButton" name="prev_btn">
+       <property name="font">
+        <font>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(85, 170, 0);
+</string>
+       </property>
+       <property name="text">
+        <string>&lt;&lt;&lt; Previous</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="page_lbl">
+       <property name="font">
+        <font>
+         <italic>true</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(85, 170, 0);</string>
+       </property>
+       <property name="text">
+        <string/>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QPushButton" name="edit_btn">
-       <property name="text">
-        <string>Edit</string>
-       </property>
-      </widget>
-     </item>
     </layout>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>381</width>
+      <height>391</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
