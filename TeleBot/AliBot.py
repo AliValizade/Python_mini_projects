@@ -6,6 +6,7 @@ import pyttsx3
 import qrcode
 import pysynth as ps
 
+
 bot = telebot.TeleBot("5779783147:AAFq7cTGSciaU9LbYsuWC1ICkezZEUgoFqk")
 
 # Create a keyboard object
