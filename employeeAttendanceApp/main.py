@@ -1,20 +1,49 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QHBoxLayout
+from PySide6.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QMessageBox
 from PySide6.QtUiTools import QUiLoader
+from PySide6.QtGui import QWindow, QIcon
+from PySide6.QtCore import QSize
 from employee import Employee
 from addEmployee import AddEmployeeDialog
 import database
 
-class employeeAttendanceApp(QMainWindow):
+class loginPage(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        loader = QUiLoader()
+        self.ui = loader.load('ui/login.ui', None)
+        self.ui.show()
+        self.username = 'admin'
+        self.password = '123'
+        self.ui.login_lbl.setStyleSheet("background-image: url(img/key4.PNG)")
+        self.ui.login_btn.clicked.connect(self.login)
+    def login(self):
+        if self.username == self.ui.username_tb.text() and self.password == self.ui.password_tb.text():
+            self.ui = employeeAttendanceApp()
+        else:
+            self.msgBox('Wrong! Try again.')
+
+    def msgBox(self, message):
+        msg = QMessageBox()
+        msg.setText(message)
+        msg.exec()
+
+class employeeAttendanceApp(QWindow):
     def __init__(self):
         super().__init__()
         loader = QUiLoader()
         self.ui = loader.load('ui/employList.ui', None)
         self.ui.show()
-        self.page_size = 6
+        self.page_size = 5
         self.current_page = 1
         self.readFromDatabase()
         self.ui.add_btn.clicked.connect(self.show_add_employee_dialog)
+        self.ui.prev_btn.setIcon(QIcon('img/6646435_arrow_button_circle_essentials_previous_icon.png'))
+        self.ui.prev_btn.setIconSize(QSize(30, 30))
+        self.ui.prev_btn.setStyleSheet('border:0px')
         self.ui.prev_btn.clicked.connect(self.previous_page)
+        self.ui.next_btn.setIcon(QIcon('img/6646422_arrow_button_circle_essentials_next_icon.png'))
+        self.ui.next_btn.setIconSize(QSize(30, 30))
+        self.ui.next_btn.setStyleSheet('border:0px')
         self.ui.next_btn.clicked.connect(self.next_page)
 
     def readFromDatabase(self):
@@ -22,7 +51,7 @@ class employeeAttendanceApp(QMainWindow):
         results = database.page_rowsLimit(self.page_size, offset)
         self.clear_grid()
         for i in range(len(results)):
-            pixmap = AddEmployeeDialog.create_thumbnail(results[i][5], 40)
+            pixmap = AddEmployeeDialog.create_thumbnail(results[i][5], 50)
             new_pic = QLabel()
             new_pic.setPixmap(pixmap)
             new_Fname = QLabel()
@@ -30,10 +59,14 @@ class employeeAttendanceApp(QMainWindow):
             new_Lname = QLabel()
             new_Lname.setText(results[i][2])
             new_edit_btn = QPushButton()
-            new_edit_btn.setText('Edit')
+            new_edit_btn.setIcon(QIcon('img/103775_edit_user_half_icon.png'))
+            new_edit_btn.setIconSize(QSize(25, 25))
+            new_edit_btn.setStyleSheet('border:0px')
             new_edit_btn.setObjectName(f'edit_btn_{results[i][0]}')
             new_del_btn = QPushButton()
-            new_del_btn.setText('Delete')
+            new_del_btn.setIcon(QIcon('img/3844459_can_delete_remove_trash_icon.png'))
+            new_del_btn.setIconSize(QSize(25, 25))
+            new_del_btn.setStyleSheet('border:0px')
             new_del_btn.setObjectName(f'edit_btn_{results[i][0]}')
             self.ui.page_lbl.setText(f'Page {self.current_page}')
             self.ui.gridLayout.addWidget(new_pic, i, 0)
@@ -109,5 +142,5 @@ class employeeAttendanceApp(QMainWindow):
             self.readFromDatabase()
 
 app = QApplication()
-window = employeeAttendanceApp()
+window = loginPage()
 app.exec_()

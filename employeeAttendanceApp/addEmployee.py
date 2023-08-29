@@ -30,13 +30,13 @@ class AddEmployeeDialog(QDialog):
         layout.addRow(self.button_box)
         self.setLayout(layout)
         self.capture_button.clicked.connect(self.capture_image)
-        self.camera = cv2.VideoCapture('img/video1.mp4')  # Open the default webcam (index 0)
+        self.camera = cv2.VideoCapture(0)  # Open the default webcam (index 0)
         database.create_table()
 
     def capture_image(self):
-        ret, frame = self.camera.read()  # Read a frame from the webcam
+        ret, frame = self.camera.read() 
         if ret:
-            frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)  # Convert BGR to RGB
+            frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)  
             height, width, channels = frame.shape
             bytes_per_line = channels * width
             qt_image = QImage(frame_rgb.data, width, height, bytes_per_line, QImage.Format_RGB888)
