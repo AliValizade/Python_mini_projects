@@ -1,3 +1,7 @@
+import random
+import string
+
+
 settings = {
     'upper': True,
     'lower': True,
@@ -16,7 +20,7 @@ def get_password_len_from_user(option, default, pw_min_len=8, pw_max_len=18):
             return default
         
         if user_input.isdigit():
-            if pw_min_len < int(user_input) <= pw_max_len:
+            if pw_min_len <= int(user_input) <= pw_max_len:
                 return int(user_input)
             else:
                 print(f'Out of range, The lenght should be between ({pw_min_len}, {pw_max_len}): ')
@@ -47,8 +51,35 @@ def get_settings(settings):
             settings[option] = user_choice
         else:
             password_len = get_password_len_from_user(option, default)
-            settings[option] = password_len         
+            settings[option] = password_len
+
+
+def generate_random_char(choices):
+    choice = random.choice(choices)
+
+    if choice == 'upper':
+        return random.choice(string.ascii_uppercase)
+    if choice == 'lower':
+        return random.choice(string.ascii_lowercase)
+    if choice == 'number':
+        return random.choice(string.digits)
+    if choice == 'symbol':
+        return random.choice(string.punctuation)
+    if choice == 'space':
+        return ' '
+
+
+def password_generator(settings):
+    final_password = ''
+    password_len = settings['lenght']
+
+    choices = list(filter(lambda x: settings[x], ['upper', 'lower', 'symbol', 'number', 'space']))
+
+    for i in range(password_len):
+        final_password += generate_random_char(choices)
+
+    return final_password
 
 
 get_settings(settings)
-print(settings)
+print(password_generator(settings))
