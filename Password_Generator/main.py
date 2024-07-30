@@ -30,17 +30,17 @@ def get_password_len_from_user(option, default, pw_min_len=PASSWORDW_MIN_LEN, pw
             if pw_min_len <= int(user_input) <= pw_max_len:
                 return int(user_input)
             else:
-                print(f'Out of range, The lenght should be between ({pw_min_len}, {pw_max_len}): ')
+                print(f'Out of range ⛔, The lenght should be between ({pw_min_len}, {pw_max_len}): ')
         else:        
-            print('Invalid input, enter a number: ')
+            print('Invalid input ❌, enter a number: ')
 
         print('Try Again, Please! ')
 
 
 def get_yes_or_no_from_user(option, default):
     while True:
-        user_input = input(f'Include {option}, '
-                           f'Default: {default}, (y:yes, n:no, enter:default)? ')
+        user_input = input(f'📌 Include {option}❓ '
+                           f'Default: {default}, (y:yes, n:no, enter:default) ')
 
         if user_input == '':
             return default
@@ -48,7 +48,7 @@ def get_yes_or_no_from_user(option, default):
         if user_input in ['y', 'n']:
             return user_input == 'y'
      
-        print('Invalid input, Plz try again.(y/n/enter)')
+        print('Invalid input ❌, Plz try again.(y/n/enter)')
 
 
 def get_settings(settings):
@@ -59,6 +59,18 @@ def get_settings(settings):
         else:
             password_len = get_password_len_from_user(option, default)
             settings[option] = password_len
+
+
+def ask_change_settings(settings):
+    while True:
+        user_answer = input('🚩 Do you want to change default settings❓ (y:yes, n:no, enter:yes) ')
+        if user_answer in ['y', 'n', '']:
+            if user_answer in ['y', '']:
+                print('\n','-'*25, 'CHANGE SETTING', '-'*25, sep='')
+                get_settings(settings)
+            break
+        else:
+            print('Invalid input ❌, Please input (y/n) or press enter: ')
 
 
 def generate_random_char(choices):
@@ -88,25 +100,31 @@ def password_generator(settings):
     return final_password
 
 
+def ask_user_to_regenerate_password():
+    while True:
+        user_answer = input('📌 Do you want regenerate password❓ (y:yes, n:no, enter:yes) ')
+        if user_answer in ['y', 'n', '']:
+            if user_answer == 'n':
+                return False
+            return True
+        else:
+            print('Invalid input ❌, Please input (y/n) or press enter: ')
+
+
 def password_generator_loop(settings):
     while True:
         print('=' * 62)
-        print(f'The generated password is: {password_generator(settings)}')
+        print(f'📢 The generated password is: {password_generator(settings)}')
 
-        while True:
-            want_another_password = input('Do you want regenerate password? (y:yes, n:no, enter:yes) ')
-            if want_another_password in ['y', 'n', '']:
-                if want_another_password == 'n':
-                    return
-                break
-            else:
-                print('Invalid input, Please input (y/n) or press enter: ')
+        if ask_user_to_regenerate_password() == False:
+            break
 
 
 def run():
     clear_screen()
-    get_settings(settings)
+    ask_change_settings(settings)
     password_generator_loop(settings)
+    print('\nThanks for use our products.🙏❤')
 
 
 run()
