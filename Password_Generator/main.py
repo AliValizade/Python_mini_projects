@@ -120,8 +120,15 @@ def password_generator_loop(settings):
             break
 
 
+def welcome():
+    print('-'*15, 'WELCOME TO THE PASSWORD GENERATOR', '-'*15)
+    print('-'*24, 'By: AliValizade', '-'*24, '\n')
+    print('='*65)
+
+
 def run():
     clear_screen()
+    welcome()
     ask_change_settings(settings)
     password_generator_loop(settings)
     print('\nThanks for use our products.🙏❤')
