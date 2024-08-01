@@ -13,10 +13,23 @@ class Time:
     def __str__(self) -> str:
         return f'{self.hour:02}:{self.minute:02}:{self.second:02}'
     
+    def __add__(self, other):
+        seconds = self.second + other.second
+        minutes = self.minute + other.minute + seconds // 60
+        hours = self.hour + other.hour + minutes // 60
+        
+        return Time(hours % 24, minutes % 60, seconds % 60)
+    
 
 t1 = Time(20, 10, 30)
 t2 = Time(20, 10, 30)
 
 print(t1)
 print(t2)
+print('='*10)
+print(t1 + t2)
+print('='*10)
+
+print('='*10)
+
 print('='*10)
