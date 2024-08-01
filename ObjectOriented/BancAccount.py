@@ -26,10 +26,29 @@ class BankAccount:
         print(f'All balance of {other.name} transferd to {self.name}.✅')
         return self
     
+    def transfer(self, other, amount):
+        if self.balance < amount:
+            print('The account balance is insufficient!❌')
+            return
+        self.balance -= amount
+        other.balance += amount
+        print(f'{amount}$ transferd from {self.name} to {other.name}.✅')
+
+    def withdraw(self, amount):
+        if amount > self.balance:
+            print(f'The account balance is insufficient!❌ Withdrawable balance: {self.balance}')
+            return
+        self.balance -= amount
+        print(f"The {amount}$ withdraw from {self.name}'s account.✅")
+
+    def deposit(self, amount):
+        if amount < 0:
+            print('Amount should be positive!❌')
+            return
+        self.balance += amount
+        print(f"The {amount}$ deposit to {self.name}'s account.✅")
     
-
-
-
+    
 a = BankAccount('ali', 5000)
 b = BankAccount('sara', 1000)
 c = BankAccount('kia')
@@ -45,3 +64,13 @@ a += b
 print(a)
 print(b)
 print('='*10)
+
+a.transfer(b, 600)
+print(a)
+print(b)
+print('='*10)
+a.withdraw(4000)
+print(a)
+print('='*10)
+b.deposit(1200)
+print(b)
