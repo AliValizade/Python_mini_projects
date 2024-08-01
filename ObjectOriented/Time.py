@@ -20,6 +20,14 @@ class Time:
         
         return Time(hours % 24, minutes % 60, seconds % 60)
     
+    def __gt__(self, other):
+        return (self.hour > other.hour) or \
+                (self.hour == other.hour and self.minute > other.minute) or \
+                (self.hour == other.hour and self.minute == other.minute and self.second > other.second)
+    
+    def __eq__(self, other):
+        return self.hour == other.hour and self.minute == other.minute and self.second == other.second
+    
 
 t1 = Time(20, 10, 30)
 t2 = Time(20, 10, 30)
@@ -29,7 +37,7 @@ print(t2)
 print('='*10)
 print(t1 + t2)
 print('='*10)
-
+print(t1 > t2)
 print('='*10)
-
+print(t1 == t2)
 print('='*10)
